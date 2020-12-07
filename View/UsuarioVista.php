@@ -1,5 +1,5 @@
 <?php
-
+require_once './Controller/UsuarioController.php';
 require_once('libs/Smarty.class.php');
 
 
@@ -29,8 +29,8 @@ class UsuarioVista {
     }
 
     function ShowListaUsuarios(){
-        $smarty = new Smarty();
-        $smarty->assign("titulo", "usuarios lisados");
-        $smarty->display("templates/listaUsuarios.tpl");
+   
+        $this->Smarty->assign("titulo", "usuarios lisados");
+        $this->Smarty->display("templates/listaUsuarios.tpl");
       }
 }

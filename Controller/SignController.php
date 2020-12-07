@@ -28,7 +28,7 @@ class SignController {
 
     public function iniciarSesion(){
         $password = $_POST['password'];
-        $usuario = $this->model->getPassword($_POST['usuario']);
+        $usuario = $this->model->getPassword($_POST['email']);
         if (isset($email) && password_verify($password, $usuario->password)){
             var_dump(password_verify($password, $usuario->password));
             session_start();

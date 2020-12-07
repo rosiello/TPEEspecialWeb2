@@ -1,6 +1,6 @@
 <?php
-require_once "RouterAvanzado.php";
-require_once "Controller/ProductosController.php";
+
+
 
 
 class ProductosModel{

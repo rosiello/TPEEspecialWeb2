@@ -19,7 +19,7 @@ $r->addRoute("categorias", "GET", "ProductosController", "listarCategorias");
 $r->addRoute("index", "GET","ProductosController","index"); 
 $r->addRoute("productos", "GET","ProductosController","productos");
 $r->addRoute("comunidad", "GET","ProductosController","comunidad");
-$r->addRoute("listaUsuarios", "GET","UsuarioController","listaUsuarios");
+$r->addRoute("listaUsuarios", "GET","UsuarioController","MostrarUsuarios");
 //Tablas//
 
 

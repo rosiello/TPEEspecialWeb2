@@ -1,5 +1,5 @@
 <?php
-
+require_once './Controller/UsuarioController.php';
 require_once('libs/Smarty.class.php');
 
 

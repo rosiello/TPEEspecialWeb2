@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-03 03:33:36
+/* Smarty version 3.1.34-dev-7, created on 2020-12-04 18:32:37
   from 'C:\xampp\htdocs\Web2Sparring-master\templates\listaUsuarios.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fc84e80c0f460_99554988',
+  'unifunc' => 'content_5fca72b5bd2b55_76443956',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '878925bcab917e015919a993a382b022938a1fe9' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Web2Sparring-master\\templates\\listaUsuarios.tpl',
-      1 => 1606962614,
+      1 => 1607103031,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fc84e80c0f460_99554988 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fca72b5bd2b55_76443956 (Smarty_Internal_Template $_smarty_tpl) {
 ?>    <div class="design">
           <table class="design">
          <thead class="design">

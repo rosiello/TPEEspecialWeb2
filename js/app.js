@@ -3,11 +3,10 @@
 let app = new Vue({
     el: "#comentarios-csr",
     data: {
-        subtitle: "comentarios",
-        loading: false,
+        subtitle: "comentario",
         comentarios: [],
         promedioComentarios:0,
-        rango : false
+        
     },
     methods: {
         borrarComentario: function(comentario) {
@@ -15,7 +14,7 @@ let app = new Vue({
                 method: 'DELETE',
              })
              .then(response => response.json())
-             .then(response =>getComentariosPorProducto())
+             .then(response => getComentariosPorProducto())
              .catch(error => console.log(error));
         }
     }
@@ -33,27 +32,12 @@ document.getElementById("addComentario").addEventListener("click", addComentario
 
 
 function getComentariosPorProducto() {
-    app.loading = true;
-    let totalComentarios = 0;
-    let sumatoria = 0;
+
     let id_producto = document.getElementById("id_producto").value;
-   
 
-
-    
-    fetch(`api/comentarios/${id_producto}`)
+    fetch(`api/comentario/${id_producto}`)
     .then(response => response.json())
-    .then(comentarios => {
-        totalComentarios = comentarios.length;
-        for (let index = 0; index < comentarios.length; index++) {
-            sumatoria += parseInt(comentarios[index].valoracion); 
-        }
-        if (totalComentarios != 0) {
-            app.promedioComentarios = (sumatoria/totalComentarios);        
-        } else {
-            app.promedioComentarios = 0;
-        }
-
+    .then(comentarios => { 
         app.comentarios = comentarios; 
         app.loading = false;
         
@@ -86,7 +70,6 @@ function addComentario() {
      .then(response => response.json())
      .then(response =>{
         getComentariosPorProducto();
-        document.getElementById("formularioComentario").reset();
      })
      .catch(error => console.log(error));
 };

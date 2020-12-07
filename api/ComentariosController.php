@@ -1,31 +1,55 @@
 <?php
 
-require_once('ApiController.php');
-require_once('ComentariosModel.php');
-require_once('ApiView.php');
+require_once 'ApiController.php';
+require_once './api/ComentariosModel.php';
+
 
 class ComentariosController extends ApiController
 {
     //CONSTRUCTOR
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->comentariosModel = new ComentariosModel();
         $this->view = new ApiView();
     }
 
-    //TRAE COMENTARIOS CON GET
-    public function getTodosLosComentarios($params = null){
+    //TRAE TODOS LOS COMENTARIOS CON GET
+    public function getTodosLosComentarios($params = null)
+    {
         $comentarios = $this->comentariosModel->getTodosLosComentarios();
         $this->view->response($comentarios, 200);
     }
-    public function getComentariosPorProducto($params = null){
+
+    // CREA COMENTARIO CON POST
+    public function AddComentario($params = null)
+    {
+        $body = $this->getData();
+        if(!empty($body->contenido)&& !empty($body->valoracion)&& !empty($body->id_producto)&& !empty($body->id_usuario)){
+            if($this->comentariosModel->AddComentario($body->contenido, $body->valoracion, $body->id_producto, $body->id_usuario)!=0)
+            $this->view->response("El comentario fue realizado", 200);
+            else
+                $this->view->response("Error al agregar comentario", 500);
+        }
+        else
+        $this->view->response("Algun campo esta vacio", 500);
+    }
+    
+
+    //MUESTRA COMENTARIOS SEGUN ID DEL PRODUCTO
+    public function getComentariosPorProducto($params = null)
+    {
         $id_producto = $params[':ID'];
         $comentarios = $this->comentariosModel->getComentariosPorProducto($id_producto);
         $this->view->response($comentarios, 200);
     }
 
-    public function GetComentario($params = null){
-        $id_comentario = $params[':ID'];
+
+
+    //Get auxiliar para llamar al comentario en el DELETE y PUT a continuacion
+    public function GetComentario($id_comentario)
+    {
+
         $comentario = $this->comentariosModel->GetComentario($id_comentario);
         if ($comentario) {
             $this->view->response($comentario, 200);
@@ -34,8 +58,9 @@ class ComentariosController extends ApiController
         }
     }
 
-    // Elimina comentario
-    public function BorrarComentario($params = []){
+    // BORRA COMENTARIO POR ID
+    public function BorrarComentario($params = null)
+    {
         $id_comentario = $params[':ID'];
         $comentario = $this->comentariosModel->GetComentario($id_comentario);
 
@@ -46,28 +71,16 @@ class ComentariosController extends ApiController
             $this->view->response("Error al eliminar comentario", 404);
     }
 
-    // Crea comentario
-    public function AddComentario(){
-        $body = $this->getData();
-        $id_comentario = $this->comentariosModel->AddComentario($body->contenido, $body->valoracion, $body->id_producto, 0);
-
-        if (!empty($id_comentario)) //verifico que exista el comentario
-            $this->view->response($this->comentariosModel->GetComentario($id_comentario), 200);
-        else
-            $this->view->response("Error al agregar comentario", 500);
-    }
-
-    // Modifica un comentario
-    public function ModificarComentario($params = []){
+    // MODIFICA UN COMENTARIO
+    public function ModificarComentario($params = null)
+    {
         $id_comentario = $params[':ID'];
         $comentario = $this->comentariosModel->GetComentario($id_comentario);
         if ($comentario) {
             $body = $this->getData();
             $contenido = $body->contenido;
             $valoracion = $body->valoracion;
-            $id_producto = $body->id_producto;
-            $id_comentario = $body->id;
-            $comentario = $this->comentariosModel->ModificarComentario($contenido, $valoracion, $id_producto, $id_comentario);
+            $comentario = $this->comentariosModel->ModificarComentario($id_comentario, $contenido, $valoracion);
             $this->view->response("Comentario modificado", 200);
         } else
             $this->view->response("Error al modificar comentario", 404);
